@@ -12,3 +12,4 @@ func BenchmarkDses(b *testing.B) {
 		Newf("%d",123456)
 	}
 }
+
