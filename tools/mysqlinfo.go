@@ -455,7 +455,6 @@ func MysqlInof(){
 	}
 
 	db.SetMaxOpenConns(20)
-	db.SetConnMaxLifetime(5*time.Second)
 	db.SetMaxIdleConns(10)
 
 	err = db.Ping()

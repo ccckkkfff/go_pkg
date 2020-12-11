@@ -14,7 +14,6 @@ import (
 //-------------------------------------------------------
 // HttpRunSafe
 // ------------------------------------------------------
-//
 //Return Value: None
 //Params:
 //		1)addr string:			http sever bind addr
