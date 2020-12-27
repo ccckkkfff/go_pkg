@@ -26,14 +26,14 @@ func TestShould_Add(t *testing.T) {
 	fmt.Println(err,string(b))
 
 	var s3 = HsESQuery()
-	s3.Term().Match().Search("name","ckf")
-	s3.Term().Match().Search("hhh","sss")
+	s3.Should().Term().Search("name","ckf")
+	s3.Should().Term().Search("hhh","sss")
 	b,err = jsoniter.Marshal(s3)
 	fmt.Println(err,string(b))
 
 	var s4 = HsESQuery()
-	s4.Term().Match().Search("name","ckf")
-	s4.Term().Match().Search("hhh","sss")
+	s4.Should().Term().Search("name","ckf")
+	s4.Should().Term().Search("hhh","sss")
 	s4.Filter().setRange("age","gt","10")
 	s4.Filter().setRange("year","gt","10")
 	b,err = jsoniter.Marshal(s4)
