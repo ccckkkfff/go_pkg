@@ -19,12 +19,12 @@ func PrintMemStats(){
 			var m runtime.MemStats
 			runtime.ReadMemStats(&m)
 
-			fmt.Printf("Alloc=%vKB TotalAlloc=%vKB Just Freed=%vKB Sys=%vKB NumGc=%vKB\n",
+			fmt.Printf("Alloc=%vKB TotalAlloc=%vKB Just Freed=%vKB Sys=%vKB NumGc=%v\n",
 				m.Alloc/1024,m.TotalAlloc/1024,(m.TotalAlloc-m.Alloc-LastTotalFreed)/1024,
 				m.Sys/1024,m.NumGC)
 
 			LastTotalFreed = m.TotalAlloc - m.Alloc
-			time.Sleep(time.Second*5)
+			time.Sleep(time.Second*10)
 		}
 	}()
 }

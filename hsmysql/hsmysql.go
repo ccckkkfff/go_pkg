@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"errors"
 	_ "github.com/go-sql-driver/mysql"
+	jsoniter "github.com/json-iterator/go"
+	"main/pkg"
 	"reflect"
 	"time"
 )
@@ -54,6 +56,7 @@ func InsertCols(db *sql.DB, sql string,data interface{})(error,string){
 	}
 
 	if ReflectValue.Index(0).Kind() != reflect.Struct{
+		//fmt.Println(ReflectValue.Index(0).NumField())
 		return errors.New("InsertCols err cause reflect type not Struct!"),""
 	}
 
@@ -94,3 +97,34 @@ func InsertCols(db *sql.DB, sql string,data interface{})(error,string){
 
 
 
+//-------------------------------------------------------
+// GetDBVal
+// ------------------------------------------------------
+//Return Value: string
+//Params:
+//		1)db *sql.DB:			database
+//		2)sql string: 			select sql
+//insert columns
+func GetDBVal(db *sql.DB,sql string)(string){
+	rows,err := db.Query(sql)
+	if err != nil{
+		return ""
+	}
+	defer rows.Close()
+
+	var v = make([]*pkg.RedisCache,0,10)
+	for {
+		var t = new(pkg.RedisCache)
+		rows.Scan(&t.User)
+		if t.User != ""{
+			v = append(v,t)
+		}
+
+		if !rows.Next(){
+			break
+		}
+	}
+	cache,_ := jsoniter.Marshal(&v)
+
+	return string(cache)
+}
